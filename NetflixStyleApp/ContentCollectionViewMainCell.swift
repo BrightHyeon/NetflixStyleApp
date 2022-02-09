@@ -48,7 +48,7 @@ class ContentCollectionViewMainCell: UICollectionViewCell {
         }
         
         //imageView
-        imageView.contentMode = .scaleAspectFill //비율에 맞게.
+        imageView.contentMode = .scaleAspectFit //비율에 맞게.
         imageView.snp.makeConstraints {
             $0.width.top.leading.trailing.equalToSuperview()
             $0.height.equalTo(imageView.snp.width)
@@ -69,10 +69,17 @@ class ContentCollectionViewMainCell: UICollectionViewCell {
             $0.leading.trailing.equalToSuperview().inset(30)
         }
         
+        [plusButton, playButton, infoButton].forEach {
+            contentStackView.addArrangedSubview($0)
+        }
+        
         [plusButton, infoButton].forEach {
             $0.titleLabel?.font = .systemFont(ofSize: 13)
             $0.setTitleColor(.white, for: .normal)
             $0.imageView?.tintColor = .white
+            $0.configuration?.imagePlacement = .top //Configuration 이용
+            $0.configuration?.imagePadding = 5
+            
         }
         
         plusButton.setTitle("내가 찜한 콘텐츠", for: .normal)
