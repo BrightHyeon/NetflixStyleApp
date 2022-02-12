@@ -16,11 +16,17 @@ class ContentCollectionViewMainCell: UICollectionViewCell {
     let imageView = UIImageView()
     let descriptionLabel = UILabel()
     let contentStackView = UIStackView()
-    //contentStackViewComponents
-    let plusButton = UIButton()
-    let playButton = UIButton()
-    let infoButton = UIButton()
     
+    //contentStackViewComponents
+    var plusButton = UIButton()
+    let playButton = UIButton()
+    var infoButton = UIButton()
+    //---------------------------------------------------------------------------
+    //iOS 15 container, configuration
+//    var container = AttributeContainer()
+//    var plusConfiguration = UIButton.Configuration.plain()
+//    var infoConfiguration = UIButton.Configuration.plain()
+    //---------------------------------------------------------------------------
     //menuStackViewComponents
     let tvButton = UIButton()
     let movieButton = UIButton()
@@ -62,7 +68,7 @@ class ContentCollectionViewMainCell: UICollectionViewCell {
         //contentStackView
         contentStackView.axis = .horizontal
         contentStackView.alignment = .center
-        contentStackView.distribution = .equalCentering
+        contentStackView.distribution = .fillEqually
         contentStackView.spacing = 20
         
         contentStackView.snp.makeConstraints {
@@ -77,19 +83,38 @@ class ContentCollectionViewMainCell: UICollectionViewCell {
             $0.titleLabel?.font = .systemFont(ofSize: 13)
             $0.setTitleColor(.white, for: .normal)
             $0.imageView?.tintColor = .white
-            $0.configuration?.imagePlacement = .top //Configuration 이용
-            $0.configuration?.imagePadding = 5
-            
         }
-        
+
         plusButton.setTitle("내가 찜한 콘텐츠", for: .normal)
         plusButton.setImage(UIImage(systemName: "plus"), for: .normal)
         plusButton.addTarget(self, action: #selector(tapPlusButton), for: .touchUpInside)
-        
+
         infoButton.setTitle("정보", for: .normal)
         infoButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
         infoButton.addTarget(self, action: #selector(tapInfoButton), for: .touchUpInside)
-        
+        //---------------------------------------------------------------------------
+//        container.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+//        container.foregroundColor = UIColor.white
+//
+//        plusConfiguration.attributedTitle = AttributedString("내가 찜한 콘텐츠", attributes: container)
+//        plusConfiguration.image = UIImage(systemName: "plus")
+//        plusConfiguration.imagePlacement = .top
+//        plusConfiguration.imagePadding = 5
+//        plusConfiguration.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 2, bottom: 20, trailing: 2)
+//
+//        infoConfiguration.attributedTitle = AttributedString("정보", attributes: container)
+//        infoConfiguration.image = UIImage(systemName: "info.circle")
+//        infoConfiguration.imagePlacement = .top
+//        infoConfiguration.imagePadding = 5
+//        infoConfiguration.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 2, bottom: 20, trailing: 2)
+//
+//        plusButton = UIButton(configuration: plusConfiguration, primaryAction: UIAction() { _ in
+//            print("TEST: Plus Button Tapped")
+//        })
+//        infoButton = UIButton(configuration: infoConfiguration, primaryAction: UIAction() { _ in
+//            print("TEST: Info Button Tapped")
+//        })
+        //---------------------------------------------------------------------------
         playButton.setTitle("► 재생", for: .normal)
         playButton.setTitleColor(.black, for: .normal)
         playButton.backgroundColor = .white

@@ -220,8 +220,14 @@ extension HomeViewController {
     
     //셀 선택 - Delegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let sectionName = contents[indexPath.section].sectionName
-        print("TEST: \(sectionName)섹션의 \(indexPath.row + 1)번째 콘텐츠") //index값은 0부터 시작하니 +1
+        let isFirstSection = indexPath.section == 0
+        let selectedItem = isFirstSection
+        ? mainItem
+        : contents[indexPath.section].contentItem[indexPath.row]
+        
+        let contentDetailView = ContentDetailView(item: selectedItem)
+        let hostingVC = UIHostingController(rootView: contentDetailView)
+        self.show(hostingVC, sender: nil)
     }
 }
 
@@ -230,17 +236,18 @@ extension HomeViewController {
 struct HomeViewController_Previews: PreviewProvider {
 
     static var previews: some View {
-        Container().edgesIgnoringSafeArea(.all)
+        HomeViewControllerRepresentable().edgesIgnoringSafeArea(.all)
+    }
+}
+
+//기존 UIKit으로 만든 ViewController를 SwiftUI와 연동하기? 연결하기!
+struct HomeViewControllerRepresentable: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> UIViewController {
+        let layout = UICollectionViewFlowLayout()
+        let homeViewController = HomeViewController(collectionViewLayout: layout)
+        return UINavigationController(rootViewController: homeViewController)
     }
 
-    struct Container: UIViewControllerRepresentable {
-        func makeUIViewController(context: Context) -> UIViewController {
-            let layout = UICollectionViewFlowLayout()
-            let homeViewController = HomeViewController(collectionViewLayout: layout)
-            return UINavigationController(rootViewController: homeViewController)
-        }
-
-        func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
-        typealias UIViewContollerType = UIViewController
-    }
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+    typealias UIViewContollerType = UIViewController
 }

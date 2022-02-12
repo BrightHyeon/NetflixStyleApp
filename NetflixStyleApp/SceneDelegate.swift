@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -13,8 +14,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        //MARK: - <initial뷰컨트롤러 설정>
         
+        //MARK: - SwiftUI 버전!!!
+        //새로만든 ContentView가 루트뷰가 되도록 설정.
+        let contentView = ContentView() //SwiftUI View file
+        if let windowScene = scene as? UIWindowScene {
+            let window = UIWindow(windowScene: windowScene)
+            window.rootViewController = UIHostingController(rootView: contentView)
+            self.window = window
+            self.window?.makeKeyAndVisible()
+        }
+        
+        
+        /*
+        //MARK: - <initial뷰컨트롤러 설정> //기존 버전!!!UIKit!!!
         //windowScene선언.
         guard let windowScene = scene as? UIWindowScene else { return }
         //window프로퍼티 선언.
@@ -31,6 +44,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.rootViewController = rootNavigationController
         //실제로 내가 설정한 값이 보이도록하여 마무리.
         self.window?.makeKeyAndVisible()
+        */
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
